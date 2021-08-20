@@ -18,11 +18,7 @@ export default async ({ expressApp }) => {
   // It returns the agenda instance because it's needed in the subsequent loaders
   const { agenda } = await dependencyInjectorLoader({
     mongoConnection,
-    models: [
-      userModel,
-      // salaryModel,
-      // whateverModel
-    ],
+    models: [userModel],
   });
   Logger.info('✌️ Dependency Injector loaded');
 
