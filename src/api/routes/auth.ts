@@ -3,7 +3,7 @@ import AuthService from '@/services/auth';
 import { IUserInputDTO } from '@/interfaces/IUser';
 import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
-import { Logger } from 'winston';
+import Logger from '@/loaders/logger';
 
 const route = Router();
 
@@ -20,12 +20,11 @@ export default (app: Router) => {
       }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
-      // logger.debug('Calling Sign-Up endpoint with body: %o', req.body);
       try {
         const { user, token } = await AuthService.SignUp(req.body as IUserInputDTO);
         return res.status(201).json({ user, token });
       } catch (e) {
-        // logger.error('🔥 error: %o', e);
+        Logger.error('🔥 error: %o', e);
         return next(e);
       }
     },
