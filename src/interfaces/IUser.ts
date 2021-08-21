@@ -11,3 +11,11 @@ export interface IUserInputDTO {
   email: string;
   password: string;
 }
+
+export interface IUserResponse {
+  _id: string;
+  fullName: string;
+  email: string;
+  password: string;
+  salt: string;
+}
