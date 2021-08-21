@@ -30,26 +30,25 @@ export default (app: Router) => {
     },
   );
 
-  // route.post(
-  //   '/signin',
-  //   celebrate({
-  //     body: Joi.object({
-  //       email: Joi.string().required(),
-  //       password: Joi.string().required(),
-  //     }),
-  //   }),
-  //   async (req: Request, res: Response, next: NextFunction) => {
-  //     // logger.debug('Calling Sign-In endpoint with body: %o', req.body);
-  //     try {
-  //       const { email, password } = req.body;
-  //       const { user } = await AuthService.SignIn(email, password);
-  //       return res.json({ user }).status(200);
-  //     } catch (e) {
-  //       // logger.error('🔥 error: %o', e);
-  //       return next(e);
-  //     }
-  //   },
-  // );
+  route.post(
+    '/signin',
+    celebrate({
+      body: Joi.object({
+        email: Joi.string().required(),
+        password: Joi.string().required(),
+      }),
+    }),
+    async (req: Request, res: Response, next: NextFunction) => {
+      // logger.debug('Calling Sign-In endpoint with body: %o', req.body);
+      try {
+        const { email, password } = req.body;
+        const { token } = await AuthService.SignIn(email, password);
+        return res.json({ token }).status(200);
+      } catch (e) {
+        return next(e);
+      }
+    },
+  );
 
   /**
    * @TODO Let's leave this as a place holder for now

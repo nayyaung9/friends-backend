@@ -51,6 +51,24 @@ const SignUp = async (userInputDTO: IUserInputDTO) => {
   }
 };
 
+const SignIn = async (email: string, password: string) => {
+  const findUser = await User.findOne({ email });
+  if (!findUser) {
+    throw new Error('User not registered');
+  }
+  Logger.info('Verify password');
+  const validPassword = await argon2.verify(findUser.password, password);
+  if (validPassword) {
+    Logger.info('Password is valid!');
+    Logger.info('Generating JWT');
+    const token = generateToken(findUser);
+
+    return { token };
+  } else {
+    throw new Error('Invalid Password');
+  }
+};
 export default {
   SignUp,
+  SignIn,
 };
