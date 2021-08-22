@@ -5,3 +5,7 @@ export interface IStory {
   content: string;
   user: IUser;
 }
+
+export interface IStoryInputDTO {
+  content: string;
+}

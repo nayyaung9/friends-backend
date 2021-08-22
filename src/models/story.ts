@@ -5,8 +5,7 @@ const Story = new mongoose.Schema(
   {
     content: {
       type: String,
-      required: [true, 'Please enter a full name'],
-      index: true,
+      required: true,
     },
     user: {
       type: mongoose.Types.ObjectId,

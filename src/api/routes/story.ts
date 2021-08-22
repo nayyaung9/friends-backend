@@ -18,10 +18,9 @@ export default (app: Router) => {
     }),
     verifyToken,
     async (req: any, res: Response, next: NextFunction) => {
-      console.log(req.credentials);
       try {
-        // const { user } = await StoryService.createStory(req.body as IUserInputDTO);
-        // return res.status(201).json({ user, token });
+        const { story } = await StoryService.createStory(req.body, req.credentials);
+        return res.status(201).json({ story });
       } catch (e) {
         return next(e);
       }

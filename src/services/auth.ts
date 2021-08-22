@@ -4,10 +4,10 @@ import argon2 from 'argon2';
 import User from '@/models/user';
 import MailService from './mailer';
 import { randomBytes } from 'crypto';
-import { IUserResponse, IUserInputDTO } from '@/interfaces/IUser';
+import { IUser, IUserInputDTO } from '@/interfaces/IUser';
 import Logger from '@/loaders/logger';
 
-function generateToken(user: IUserResponse) {
+function generateToken(user: IUser) {
   const today = new Date();
   const exp = new Date(today);
   exp.setDate(today.getDate() + 60);
