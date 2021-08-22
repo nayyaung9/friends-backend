@@ -14,7 +14,7 @@ function generateToken(user: IUserResponse) {
   return jwt.sign(
     {
       _id: user._id,
-      exp: exp.getTime() / 1000,
+      fullName: user.fullName,
     },
     config.jwtSecret,
   );
@@ -68,6 +68,7 @@ const SignIn = async (email: string, password: string) => {
     throw new Error('Invalid Password');
   }
 };
+
 export default {
   SignUp,
   SignIn,

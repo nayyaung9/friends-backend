@@ -42,7 +42,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/agenda": "^2.0.9",
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",

@@ -15,6 +15,7 @@ const User = new mongoose.Schema(
       index: true,
     },
     password: String,
+    salt: String,
   },
   { timestamps: true },
 );

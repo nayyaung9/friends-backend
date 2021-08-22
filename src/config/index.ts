@@ -34,9 +34,6 @@ export default {
     level: process.env.LOG_LEVEL || 'silly',
   },
 
-  /**
-   * Agenda.js stuff
-   */
   agenda: {
     dbCollection: process.env.AGENDA_DB_COLLECTION,
     pooltime: process.env.AGENDA_POOL_TIME,
