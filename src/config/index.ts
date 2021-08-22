@@ -33,20 +33,6 @@ export default {
   logs: {
     level: process.env.LOG_LEVEL || 'silly',
   },
-
-  agenda: {
-    dbCollection: process.env.AGENDA_DB_COLLECTION,
-    pooltime: process.env.AGENDA_POOL_TIME,
-    concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
-  },
-
-  /**
-   * Agendash config
-   */
-  agendash: {
-    user: 'agendash',
-    password: '123456',
-  },
   /**
    * API configs
    */
@@ -57,8 +43,7 @@ export default {
    * Mailgun email credentials
    */
   emails: {
-    apiKey: process.env.MAILGUN_API_KEY,
-    apiUsername: process.env.MAILGUN_USERNAME,
-    domain: process.env.MAILGUN_DOMAIN,
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
   },
 };

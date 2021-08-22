@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from '@/config';
 import argon2 from 'argon2';
 import User from '@/models/user';
+import MailService from './mailer';
 import { randomBytes } from 'crypto';
 import { IUserResponse, IUserInputDTO } from '@/interfaces/IUser';
 import Logger from '@/loaders/logger';
@@ -40,6 +41,7 @@ const SignUp = async (userInputDTO: IUserInputDTO): Promise<{ token: string }> =
     Logger.info('Saving user record to database.');
     await userRecord.save();
 
+    await MailService.sendWelcomeMail(userRecord.email);
     if (!userRecord) {
       throw new Error('User cannot be created');
     }
