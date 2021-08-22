@@ -20,8 +20,8 @@ export default (app: Router) => {
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const { user, token } = await AuthService.SignUp(req.body as IUserInputDTO);
-        return res.status(201).json({ user, token });
+        const { token } = await AuthService.SignUp(req.body as IUserInputDTO);
+        return res.status(201).json({ token });
       } catch (e) {
         Logger.error('🔥 error: %o', e);
         return next(e);

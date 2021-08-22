@@ -20,7 +20,7 @@ function generateToken(user: IUserResponse) {
   );
 }
 
-const SignUp = async (userInputDTO: IUserInputDTO) => {
+const SignUp = async (userInputDTO: IUserInputDTO): Promise<{ token: string }> => {
   try {
     Logger.debug('Calling Sign-Up endpoint with body: %o', userInputDTO);
 
@@ -45,13 +45,13 @@ const SignUp = async (userInputDTO: IUserInputDTO) => {
     }
 
     Logger.info('Return User and Token');
-    return { user: userRecord, token };
+    return { token };
   } catch (e) {
     throw e;
   }
 };
 
-const SignIn = async (email: string, password: string) => {
+const SignIn = async (email: string, password: string): Promise<{ token: string }> => {
   const findUser = await User.findOne({ email });
   if (!findUser) {
     throw new Error('User not registered');
