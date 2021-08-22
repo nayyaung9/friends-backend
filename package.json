@@ -5,8 +5,9 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc",
-    "heroku-postbuild": "yarn run build",
     "start": "nodemon",
+    "start-prod": "node build/app.js",
+    "postinstall": "yarn build",
     "dev": "nodemon -x ts-node src/server.ts",
     "inspect": "nodemon --inspect src/app.ts",
     "test": "jest",
