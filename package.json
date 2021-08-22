@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon",
-    "start-prod": "node build/app.js",
+    "start:prod": "node -r tsconfig-paths/register build/app.js",
     "postinstall": "yarn build",
     "dev": "nodemon -x ts-node src/server.ts",
     "inspect": "nodemon --inspect src/app.ts",
