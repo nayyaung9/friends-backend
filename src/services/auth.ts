@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import config from '@/config/index';
+import config from '@/config';
 import argon2 from 'argon2';
 import User from '@/models/user';
 import MailService from './mailer';
