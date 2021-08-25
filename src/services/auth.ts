@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
-import config from '@/config';
+import config from '../config';
 import argon2 from 'argon2';
-import User from '@/models/user';
+import User from '../models/user';
 import MailService from './mailer';
 import { randomBytes } from 'crypto';
-import { IUser, IUserInputDTO } from '@/interfaces/IUser';
-import Logger from '@/loaders/logger';
+import { IUser, IUserInputDTO } from '../interfaces/IUser';
+import Logger from '../loaders/logger';
 
 function generateToken(user: IUser) {
   const today = new Date();

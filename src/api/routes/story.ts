@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import verifyToken from '../middlewares/verifyToken';
-import StoryService from '@/services/story';
+import StoryService from '../../services/story';
 import { celebrate, Joi } from 'celebrate';
 
 const route = Router();

@@ -1,8 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import AuthService from '@/services/auth';
-import { IUserInputDTO } from '@/interfaces/IUser';
+import AuthService from '../../services/auth';
+import { IUserInputDTO } from '../../interfaces/IUser';
 import { celebrate, Joi } from 'celebrate';
-import Logger from '@/loaders/logger';
+import Logger from '../../loaders/logger';
 
 const route = Router();
 

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import config from '@/config';
+import config from '../../config';
 
 function verifyToken(req: Request | any, res: Response, next: NextFunction): Response {
   const token: string | string[] = req.headers['x-access-token'];

@@ -1,4 +1,4 @@
-import { IStory } from '@/interfaces/IStory';
+import { IStory } from '../interfaces/IStory';
 import mongoose from 'mongoose';
 
 const Story = new mongoose.Schema(

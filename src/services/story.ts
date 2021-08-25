@@ -1,6 +1,6 @@
-import Story from '@/models/story';
-import Logger from '@/loaders/logger';
-import { IStoryInputDTO, IStory } from '@/interfaces/IStory';
+import Story from '../models/story';
+import Logger from '../loaders/logger';
+import { IStoryInputDTO, IStory } from '../interfaces/IStory';
 
 const createStory = async (storyInput: IStoryInputDTO, currentUser): Promise<{ story: IStory }> => {
   const { content } = storyInput;
