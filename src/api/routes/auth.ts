@@ -41,9 +41,12 @@ export default (app: Router) => {
       // logger.debug('Calling Sign-In endpoint with body: %o', req.body);
       try {
         const { email, password } = req.body;
+        console.log('login', req.body);
         const { token } = await AuthService.SignIn(email, password);
         return res.json({ token }).status(200);
       } catch (e) {
+        console.log('login error', e);
+
         return next(e);
       }
     },
