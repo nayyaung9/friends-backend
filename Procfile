@@ -1,1 +1,1 @@
-web: yarn start:prod
+web: ts-node src/app.ts
