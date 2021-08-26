@@ -19,9 +19,11 @@ function verifyToken(req: Request | any, res: Response, next: NextFunction): Res
 }
 
 function decodedCredentials(decoded: any) {
-  const { _id } = decoded as any;
+  const { _id, fullName, email } = decoded as any;
   return {
     _id,
+    fullName,
+    email,
   };
 }
 

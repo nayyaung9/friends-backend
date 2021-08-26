@@ -16,6 +16,7 @@ function generateToken(user: IUser) {
     {
       _id: user._id,
       fullName: user.fullName,
+      email: user.email,
     },
     config.jwtSecret,
   );
