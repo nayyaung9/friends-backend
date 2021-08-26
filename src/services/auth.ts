@@ -22,6 +22,7 @@ function generateToken(user: IUser) {
 }
 
 const SignUp = async (userInputDTO: IUserInputDTO): Promise<{ token: string }> => {
+  const { email } = userInputDTO;
   try {
     Logger.debug('Calling Sign-Up endpoint with body: %o', userInputDTO);
 
@@ -29,6 +30,11 @@ const SignUp = async (userInputDTO: IUserInputDTO): Promise<{ token: string }> =
 
     const hashedPassword = await argon2.hash(userInputDTO.password, { salt });
 
+    const findUser = await User.findOne({ email });
+
+    if (findUser) {
+      throw new Error('User Already existed');
+    }
     const userRecord = new User({
       ...userInputDTO,
       salt: salt.toString('hex'),
