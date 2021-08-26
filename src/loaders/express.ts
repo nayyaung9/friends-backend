@@ -56,6 +56,7 @@ export default ({ app }: { app: express.Application }) => {
     return next(err);
   });
   app.use((err, req, res, next) => {
+    console.log('ERRRRRRRRROR', err);
     res.status(err.status || 500);
     res.json({
       errors: {
