@@ -26,4 +26,13 @@ export default (app: Router) => {
       }
     },
   );
+
+  route.get('/all', verifyToken, async (req: any, res: Response, next: NextFunction) => {
+    try {
+      const { stories } = await StoryService.fetchStories();
+      return res.status(201).json({ stories });
+    } catch (e) {
+      return next(e);
+    }
+  });
 };

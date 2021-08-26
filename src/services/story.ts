@@ -22,6 +22,17 @@ const createStory = async (storyInput: IStoryInputDTO, currentUser): Promise<{ s
   }
 };
 
+const fetchStories = async (): Promise<{ stories: IStory[] }> => {
+  try {
+    const stories = await Story.find().sort({ createdAt: -1 }).populate('user');
+
+    return { stories };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   createStory,
+  fetchStories,
 };
