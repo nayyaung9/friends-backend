@@ -51,7 +51,6 @@ export default (app: Router) => {
 
   route.post('/social/authentication', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log('login', req.body);
       const { token } = await AuthService.SocialAuth(req.body as IUserSocialInput);
       return res.json({ token }).status(200);
     } catch (e) {

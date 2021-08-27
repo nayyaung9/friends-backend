@@ -90,7 +90,9 @@ const SocialAuth = async (userInputDTO: IUserSocialInput): Promise<{ token: stri
     const findUser = await User.findOne({ email });
 
     if (findUser) {
-      throw new Error('User Already existed');
+      const token = generateToken(findUser);
+
+      return { token };
     }
     const userRecord = new User({
       ...userInputDTO,
