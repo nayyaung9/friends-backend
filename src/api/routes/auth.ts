@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import AuthService from '../../services/auth';
-import { IUserInputDTO } from '../../interfaces/IUser';
+import { IUserInputDTO, IUserSocialInput } from '../../interfaces/IUser';
 import { celebrate, Joi } from 'celebrate';
 import Logger from '../../loaders/logger';
 
@@ -41,14 +41,23 @@ export default (app: Router) => {
       // logger.debug('Calling Sign-In endpoint with body: %o', req.body);
       try {
         const { email, password } = req.body;
-        console.log('login', req.body);
         const { token } = await AuthService.SignIn(email, password);
         return res.json({ token }).status(200);
       } catch (e) {
-        console.log('login error', e);
-
         return next(e);
       }
     },
   );
+
+  route.post('/social/authentication', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log('login', req.body);
+      const { token } = await AuthService.SocialAuth(req.body as IUserSocialInput);
+      return res.json({ token }).status(200);
+    } catch (e) {
+      console.log('login error', e);
+
+      return next(e);
+    }
+  });
 };

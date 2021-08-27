@@ -4,7 +4,7 @@ import argon2 from 'argon2';
 import User from '../models/user';
 import MailService from './mailer';
 import { randomBytes } from 'crypto';
-import { IUser, IUserInputDTO } from '../interfaces/IUser';
+import { IUser, IUserInputDTO, IUserSocialInput } from '../interfaces/IUser';
 import Logger from '../loaders/logger';
 
 function generateToken(user: IUser) {
@@ -78,7 +78,46 @@ const SignIn = async (email: string, password: string): Promise<{ token: string 
   }
 };
 
+const SocialAuth = async (userInputDTO: IUserSocialInput): Promise<{ token: string }> => {
+  const { email } = userInputDTO;
+  try {
+    Logger.debug('Calling Sign-Up endpoint with body: %o', userInputDTO);
+
+    const salt = randomBytes(32);
+
+    const hashedPassword = await argon2.hash('password', { salt });
+
+    const findUser = await User.findOne({ email });
+
+    if (findUser) {
+      throw new Error('User Already existed');
+    }
+    const userRecord = new User({
+      ...userInputDTO,
+      salt: salt.toString('hex'),
+      password: hashedPassword,
+    });
+
+    Logger.info('Generating Token');
+    const token = generateToken(userRecord);
+
+    Logger.info('Saving user record to database.');
+    await userRecord.save();
+
+    await MailService.sendWelcomeMail(userRecord.email);
+    if (!userRecord) {
+      throw new Error('User cannot be created');
+    }
+
+    Logger.info('Return User and Token');
+    return { token };
+  } catch (e) {
+    throw e;
+  }
+};
+
 export default {
   SignUp,
   SignIn,
+  SocialAuth,
 };
