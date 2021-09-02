@@ -35,7 +35,7 @@ const updateProfile = async (data: IUserInputDTO, currentUser: IUser): Promise<{
 
 const getProfile = async (currentUser: IUser): Promise<{ user: IUser }> => {
   try {
-    const user = await User.findById(currentUser?._id).select('-password -salt');
+    const user = await User.findById(currentUser?._id).select('-password -salt -updatedAt');
 
     return { user };
   } catch (error) {

@@ -26,4 +26,8 @@ const User = new mongoose.Schema(
   { timestamps: true },
 );
 
+User.set('toJSON', {
+  versionKey: false,
+});
+
 export default mongoose.model<IUser & mongoose.Document>('User', User);
