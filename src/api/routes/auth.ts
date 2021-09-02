@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import AuthService from '../../services/auth';
+import UserService from '../../services/user';
 import { IUserInputDTO, IUserSocialInput } from '../../interfaces/IUser';
 import { celebrate, Joi } from 'celebrate';
 import verifyToken from '../middlewares/verifyToken';
@@ -64,7 +65,12 @@ export default (app: Router) => {
   /**
    * return the authenticated current logged in user
    */
-  route.get('/me', verifyToken, async (req: any, res: Response) => {
-    res.status(200).json({ user: req.credentials });
+  route.get('/me', verifyToken, async (req: any, res: Response, next: NextFunction) => {
+    try {
+      const { user } = await UserService.getProfile(req.credentials);
+      return res.json({ user }).status(200);
+    } catch (e) {
+      return next(e);
+    }
   });
 };

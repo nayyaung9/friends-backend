@@ -33,6 +33,16 @@ const updateProfile = async (data: IUserInputDTO, currentUser: IUser): Promise<{
   }
 };
 
+const getProfile = async (currentUser: IUser): Promise<{ user: IUser }> => {
+  try {
+    const user = await User.findById(currentUser?._id);
+
+    return { user };
+  } catch (error) {
+    throw error;
+  }
+};
 export default {
   updateProfile,
+  getProfile,
 };
