@@ -18,12 +18,13 @@ function verifyToken(req: Request | any, res: Response, next: NextFunction): Res
   });
 }
 
-function decodedCredentials(decoded: any) {
-  const { _id, fullName, email } = decoded as any;
+function decodedCredentials(decoded) {
+  const { _id, fullName, email, avatar } = decoded;
   return {
     _id,
     fullName,
     email,
+    avatar,
   };
 }
 

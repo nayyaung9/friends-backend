@@ -17,6 +17,9 @@ const User = new mongoose.Schema(
     avatar: {
       type: String,
     },
+    bio: {
+      type: String,
+    },
     password: String,
     salt: String,
   },

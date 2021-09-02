@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import AuthService from '../../services/auth';
 import { IUserInputDTO, IUserSocialInput } from '../../interfaces/IUser';
 import { celebrate, Joi } from 'celebrate';
+import verifyToken from '../middlewares/verifyToken';
 import Logger from '../../loaders/logger';
 
 const route = Router();
@@ -58,5 +59,12 @@ export default (app: Router) => {
 
       return next(e);
     }
+  });
+
+  /**
+   * return the authenticated current logged in user
+   */
+  route.get('/me', verifyToken, async (req: any, res: Response) => {
+    res.status(200).json({ user: req.credentials });
   });
 };
