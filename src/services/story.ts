@@ -13,7 +13,7 @@ const createStory = async (storyInput: IStoryInputDTO, currentUser): Promise<{ s
     Logger.debug('Calling Story endpoint with body: %o', storyInput);
 
     const newStory = new Story({
-      content,
+      content: JSON.stringify(content),
       user: currentUser._id,
     });
 
@@ -48,7 +48,6 @@ const fetchStories = async (): Promise<{ stories: IStory[] }> => {
  * @description fetch story detail by id
  */
 const fetchStoryById = async (id): Promise<{ story: IStory }> => {
-  console.log(id);
   try {
     const story = await Story.findById(id).populate('user', '-password -salt -email -createdAt -updatedAt');
 
@@ -58,8 +57,26 @@ const fetchStoryById = async (id): Promise<{ story: IStory }> => {
   }
 };
 
+/**
+ * @route /api/story/my-stories
+ * @method GET
+ * @description fetch my stories
+ */
+const fetchMyStories = async (currentUser): Promise<{ stories: IStory[] }> => {
+  try {
+    const stories = await Story.find()
+      .sort({ createdAt: -1 })
+      .populate('user', '-password -salt -email -createdAt -updatedAt');
+
+    return { stories };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   createStory,
   fetchStories,
   fetchStoryById,
+  fetchMyStories,
 };

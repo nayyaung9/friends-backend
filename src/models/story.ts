@@ -8,9 +8,10 @@ const Story = new mongoose.Schema(
       required: true,
     },
     user: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+
     coverPhoto: {
       type: String,
     },
