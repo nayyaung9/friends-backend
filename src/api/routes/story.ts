@@ -35,4 +35,15 @@ export default (app: Router) => {
       return next(e);
     }
   });
+
+  route.get('/:id', verifyToken, async (req: any, res: Response, next: NextFunction) => {
+    const { id } = req.params as any;
+
+    try {
+      const { story } = await StoryService.fetchStoryById(id);
+      return res.status(201).json({ story });
+    } catch (e) {
+      return next(e);
+    }
+  });
 };
