@@ -18,4 +18,8 @@ const Story = new mongoose.Schema(
   { timestamps: true },
 );
 
+Story.set('toJSON', {
+  versionKey: false,
+});
+
 export default mongoose.model<IStory & mongoose.Document>('Story', Story);

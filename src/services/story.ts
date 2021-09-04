@@ -48,8 +48,9 @@ const fetchStories = async (): Promise<{ stories: IStory[] }> => {
  * @description fetch story detail by id
  */
 const fetchStoryById = async (id): Promise<{ story: IStory }> => {
+  console.log(id);
   try {
-    const story = await Story.findById(id).populate('user');
+    const story = await Story.findById(id).populate('user', '-password -salt -email -createdAt -updatedAt');
 
     return { story };
   } catch (error) {
