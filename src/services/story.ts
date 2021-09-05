@@ -13,7 +13,7 @@ const createStory = async (storyInput: IStoryInputDTO, currentUser): Promise<{ s
     Logger.debug('Calling Story endpoint with body: %o', storyInput);
 
     const newStory = new Story({
-      content: JSON.stringify(content),
+      content,
       user: currentUser._id,
     });
 
@@ -74,9 +74,61 @@ const fetchMyStories = async (currentUser): Promise<{ stories: IStory[] }> => {
   }
 };
 
+/**
+ * @route /api/story/update/:id
+ * @method PUT
+ * @description update story by id
+ */
+const updateStory = async (id, data): Promise<{ story: IStory }> => {
+  try {
+    const findStory = await Story.findById(id);
+
+    if (!findStory) {
+      throw 'Story not found or maybe deleted';
+    }
+
+    const updateStory = await Story.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          ...data,
+        },
+      },
+      { new: true },
+    ).populate('user', '-password -salt -email -createdAt -updatedAt');
+
+    return { story: updateStory };
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * @route /api/story/delete/:id
+ * @method DELETE
+ * @description delete story by id
+ */
+const deleteStory = async (id): Promise<{ story: IStory }> => {
+  try {
+    const findStory = await Story.findById(id);
+
+    if (!findStory) {
+      throw 'Story not found or maybe deleted';
+    }
+
+    const deletedStory = await Story.findByIdAndDelete(id);
+
+    return { story: deletedStory };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   createStory,
   fetchStories,
   fetchStoryById,
   fetchMyStories,
+  updateStory,
+  deleteStory,
 };

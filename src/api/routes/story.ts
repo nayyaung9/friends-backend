@@ -56,4 +56,26 @@ export default (app: Router) => {
       return next(e);
     }
   });
+
+  route.put('/update/:id', verifyToken, async (req: any, res: Response, next: NextFunction) => {
+    const { id } = req.params as any;
+
+    try {
+      const { story } = await StoryService.updateStory(id, req.body);
+      return res.status(201).json({ story });
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+  route.delete('/delete/:id', verifyToken, async (req: any, res: Response, next: NextFunction) => {
+    const { id } = req.params as any;
+
+    try {
+      const { story } = await StoryService.deleteStory(id);
+      return res.status(201).json({ story });
+    } catch (e) {
+      return next(e);
+    }
+  });
 };
