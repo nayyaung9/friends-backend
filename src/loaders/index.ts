@@ -1,5 +1,6 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
+import socketLoader from './socket';
 import Logger from './logger';
 
 export default async ({ expressApp }) => {
@@ -8,4 +9,7 @@ export default async ({ expressApp }) => {
 
   await expressLoader({ app: expressApp });
   Logger.info('Express loaded');
+
+  await socketLoader({ app: expressApp });
+  Logger.info('Socket is alive');
 };
