@@ -1,22 +1,15 @@
-import express from 'express';
-
-export default ({ app }: { app: express.Application }) => {
-  const server = require('http').Server(app);
-
+export default ({ server }) => {
   const io = require('socket.io')(server, {
-    cors: {
-      origin: ['http://192.168.1.9:8081'],
-      methods: ['GET', 'POST'],
-      credentials: true,
-    },
-  });
-
-  app.use(function (req: any, res, next) {
-    req.io = io;
-    next();
+    rejectUnauthorized: false,
+    // auth: {
+    //   token: 'abc',
+    // },
   });
 
   io.on('connection', socket => {
+    console.log('New User Connected');
+    const token = socket.handshake.auth.token;
+    console.log('token', token);
     const { roomId } = socket.handshake.query;
     console.log('socket.handshake', socket.handshake);
     socket.join(roomId);
